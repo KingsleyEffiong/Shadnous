@@ -9,7 +9,7 @@ import { Star, Music2, ArrowLeft, Sparkles, Crown, Shield } from "lucide-react";
 
 export default function MusicianPage() {
   const { id } = useParams();
-  const name = id;
+  const name = Array.isArray(id) ? id[0] : id || "";
   const capitalized = name.toUpperCase();
   const capitalizedFirstLetter = name.charAt(0).toUpperCase() + name.slice(1);
 

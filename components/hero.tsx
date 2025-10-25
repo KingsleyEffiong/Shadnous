@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Music2, Guitar, Mic2 } from "lucide-react";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -101,15 +102,18 @@ export default function Hero() {
           transition={{ delay: 0.8, duration: 1 }}
           className="flex justify-center space-x-4"
         >
-          <Button className="rounded-full bg-gradient-to-r from-[#00C8FF] to-[#4FDFFF] text-black font-semibold px-6 py-3 hover:shadow-[0_0_25px_#00C8FF] transition-all duration-300">
+          <Link
+            href="/shadnous.fan"
+            className="rounded-full bg-gradient-to-r from-[#00C8FF] to-[#4FDFFF] text-black font-semibold px-6 py-3 hover:shadow-[0_0_25px_#00C8FF] transition-all duration-300"
+          >
             Join Now
-          </Button>
-          <Button
-            variant="ghost"
+          </Link>
+          <Link
+            href="/shadnous.fan"
             className="rounded-full border border-[#00C8FF]/60 text-[#00C8FF] hover:bg-[#00C8FF]/10 hover:shadow-[0_0_15px_#00C8FF] px-6 py-3 transition-all duration-300"
           >
             Explore
-          </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
