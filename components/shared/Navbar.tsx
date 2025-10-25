@@ -29,59 +29,62 @@ function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 text-white">
         {/* Logo */}
-        <motion.div
-          className="flex items-center space-x-3"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        >
+        <Link href="/" className="cursor-pointer">
           <motion.div
-            className="relative flex items-center"
-            animate={{
-              y: [0, -4, 0, 4, 0],
-              scale: [1, 1.03, 1],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            className="flex items-center space-x-3"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
           >
             <motion.div
+              className="relative flex items-center"
               animate={{
-                boxShadow: [
-                  "0 0 15px rgba(0,200,255,0.4)",
-                  "0 0 30px rgba(0,200,255,0.8)",
-                  "0 0 15px rgba(0,200,255,0.4)",
-                ],
+                y: [0, -4, 0, 4, 0],
+                scale: [1, 1.03, 1],
               }}
               transition={{
-                duration: 3,
+                duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute inset-0 rounded-full"
-            />
-            <Image
-              src="/logo.png"
-              alt="Shadnous Logo"
-              width={50}
-              height={50}
-              className="rounded-full relative z-10"
-            />
+            >
+              <motion.div
+                animate={{
+                  boxShadow: [
+                    "0 0 15px rgba(0,200,255,0.4)",
+                    "0 0 30px rgba(0,200,255,0.8)",
+                    "0 0 15px rgba(0,200,255,0.4)",
+                  ],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute inset-0 rounded-full"
+              />
+              <Image
+                src="/logo.png"
+                alt="Shadnous Logo"
+                width={50}
+                height={50}
+                className="rounded-full relative z-10"
+              />
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="text-2xl font-extrabold tracking-wide"
+            >
+              <span className="text-[#00C8FF] drop-shadow-[0_0_8px_#00C8FF]">
+                SHAD
+              </span>
+              <span className="text-white/90">NOUS</span>
+            </motion.h1>
           </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-2xl font-extrabold tracking-wide"
-          >
-            <span className="text-[#00C8FF] drop-shadow-[0_0_8px_#00C8FF]">
-              SHAD
-            </span>
-            <span className="text-white/90">NOUS</span>
-          </motion.h1>
-        </motion.div>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-10 text-sm font-medium">
