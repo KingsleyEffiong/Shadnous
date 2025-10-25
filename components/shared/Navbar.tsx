@@ -16,8 +16,6 @@ function Navbar() {
     { label: "Artists", path: "/" },
     { label: "Fans", path: "/fans" },
     { label: "Brands", path: "/brands" },
-    { label: "Venues", path: "/venues" },
-    { label: "News", path: "/news" },
     { label: "The Beat", path: "/thebeat" },
     { label: "Contact", path: "/contact" },
   ];

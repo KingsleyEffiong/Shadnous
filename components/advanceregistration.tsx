@@ -90,9 +90,6 @@ export default function AdvancedRegistration() {
           <button className="px-6 py-3 rounded-full bg-[#00ffe0] text-black font-semibold flex items-center gap-2 hover:bg-[#00e0c8] transition">
             Learn More <ArrowRight size={18} />
           </button>
-          <button className="px-6 py-3 rounded-full border border-[#00ffe0]/40 text-[#00ffe0] font-semibold hover:bg-[#00ffe0]/10 transition">
-            Sign Up
-          </button>
         </div>
       </div>
     </section>

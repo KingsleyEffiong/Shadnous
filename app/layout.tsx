@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/footer";
+import FAQSection from "@/components/faq";
 
 export const metadata: Metadata = {
   title: "Shadnous",
@@ -29,6 +30,9 @@ export default function RootLayout({
     <html lang="en" className="bg-black text-white scroll-smooth">
       <Navbar />
       <body>{children}</body>
+      <section className="relative z-30 bg-gradient-to-b from-black via-[#001018] to-[#000000] py-32">
+        <FAQSection />
+      </section>
       <Footer />
     </html>
   );

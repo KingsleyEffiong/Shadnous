@@ -8,7 +8,7 @@ import { Music2, Guitar, Mic2 } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative w-full h-[100vh] overflow-hidden flex items-center justify-center text-center">
+    <section className="relative w-full overflow-hidden flex items-center justify-center text-center py-56">
       {/* Background Image */}
       <Image
         src="/aditya-chinchure-ZhQCZjr9fHo-unsplash.jpg"

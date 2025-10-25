@@ -12,7 +12,7 @@ export default function FansPage() {
   return (
     <main className="relative bg-black text-white overflow-hidden">
       {/* HERO SECTION */}
-      <section className="relative min-h-[100vh] flex items-center justify-center py-32 md:py-40">
+      <section className="relative  flex items-center justify-center py-52">
         {/* Background image */}
         <Image
           src="/danny-howe-bn-D2bCvpik-unsplash.jpg"
@@ -108,11 +108,6 @@ export default function FansPage() {
       {/* ADVANCED REGISTRATION SECTION */}
       <section className="relative z-30 bg-gradient-to-t from-black via-[#001018] to-black py-32">
         <AdvancedRegistration />
-      </section>
-
-      {/* FAQ SECTION 👇 */}
-      <section className="relative z-30 bg-gradient-to-b from-black via-[#001018] to-[#000000] py-32">
-        <FaqSection />
       </section>
     </main>
   );
