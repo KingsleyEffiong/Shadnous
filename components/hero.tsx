@@ -92,8 +92,9 @@ export default function Hero() {
           transition={{ delay: 0.4, duration: 1 }}
           className="text-gray-300 text-lg mb-8"
         >
-          Join the movement. Connect with your favorite artists, get exclusive
-          access, and experience music like never before.
+          Unlock private access to your favorite artists. Enjoy exclusive drops,
+          updates, meet-and-greets, and unforgettable experiences — all with
+          your Fan Access Card.
         </motion.p>
 
         <motion.div

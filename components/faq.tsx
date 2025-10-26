@@ -6,44 +6,28 @@ import React, { useState } from "react";
 
 const faqs = [
   {
-    question: "What is Advanced Ticket Registration?",
+    question: "What is the Fan Access Card?",
     answer:
-      "Advanced Ticket Registration is a system that allows real fans to register their interest in tickets before general sales begin. It ensures tickets reach actual fans instead of bots or resellers.",
+      "The Fan Access Card is your digital pass to exclusive artist updates, events, and drops — all in one place.",
   },
   {
-    question: "How do I register for tickets?",
+    question: "How do I get my card?",
     answer:
-      "When an artist announces a tour, visit the registration page and select the shows you’d like to attend. You’ll receive an email confirmation once registration closes, and you’ll be notified if you’re selected to buy tickets.",
+      "Just enter your email, and your personalized Fan Access Card will be generated instantly.",
   },
   {
-    question: "Is registering a guarantee that I’ll get tickets?",
+    question: "Do I need an account or sign-up?",
     answer:
-      "Registration does not guarantee a ticket. It increases your chances by prioritizing loyal fans, but tickets are still limited and distributed fairly based on demand.",
+      "No sign-ups or logins — simply get your card and start receiving updates right away.",
   },
   {
-    question: "Do I need to pay to register?",
+    question: "What do I get with the card?",
     answer:
-      "No — registration is completely free. You’ll only need to pay once you’re selected and invited to complete your ticket purchase.",
+      "You’ll receive insider news, show alerts, merch drops, and special updates directly from the artist.",
   },
   {
-    question: "How are fans prioritized?",
-    answer:
-      "We prioritize real fans based on fair algorithms that prevent scalping and ensure that active, verified members get better access opportunities.",
-  },
-  {
-    question: "Can I register for multiple shows?",
-    answer:
-      "Yes! You can select multiple shows during the registration window. However, approval depends on demand and availability per show.",
-  },
-  {
-    question: "What happens if I miss the registration window?",
-    answer:
-      "If you miss the registration window, you can still try to buy tickets during general sales — but early registration increases your chances significantly.",
-  },
-  {
-    question: "How will I know if I’ve been selected?",
-    answer:
-      "You’ll receive an official email with purchase instructions and your access link if selected. Make sure to check your spam/junk folder just in case!",
+    question: "Can I get cards for multiple artists?",
+    answer: "Yes, you can get a unique card for each artist you support.",
   },
 ];
 
@@ -70,7 +54,7 @@ export default function FAQSection() {
             Frequently Asked <span className="text-[#00ffe0]">Questions</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Find answers to common questions about advanced registration,
+            Find answers to common questions about Fan Access Cards, artist
             memberships, and how to get the best ticket access.
           </p>
         </motion.div>
