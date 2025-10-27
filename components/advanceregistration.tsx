@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Ticket, Clock3, Users } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 export default function AdvancedRegistration() {
@@ -87,9 +88,12 @@ export default function AdvancedRegistration() {
 
         {/* Buttons */}
         <div className="flex justify-center mt-16 gap-6">
-          <button className="px-6 py-3 rounded-full bg-[#00ffe0] text-black font-semibold flex items-center gap-2 hover:bg-[#00e0c8] transition">
-            Learn More <ArrowRight size={18} />
-          </button>
+          <Link
+            href="/contact"
+            className="px-6 py-3 rounded-full bg-[#00ffe0] text-black font-semibold flex items-center gap-2 hover:bg-[#00e0c8] transition"
+          >
+            Contact Us <ArrowRight size={18} />
+          </Link>
         </div>
       </div>
     </section>

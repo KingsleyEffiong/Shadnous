@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Bell, Smartphone, Users, Star, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function BrandsSection() {
   return (
@@ -35,15 +36,12 @@ export default function BrandsSection() {
           </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-6">
-            <Button className="bg-[#00FFE0] text-black font-semibold px-8 py-6 rounded-full hover:bg-[#00E0C8]/90 shadow-[0_0_25px_#00FFE0] transition-all duration-300">
-              Learn More
-            </Button>
-            <Button
-              variant="outline"
+            <Link
+              href="/contact"
               className="border-[#00FFE0] text-[#00FFE0] font-semibold px-8 py-6 rounded-full hover:bg-[#00FFE0]/10 transition-all duration-300 hover:text-white"
             >
               Contact Us
-            </Button>
+            </Link>
           </div>
         </motion.div>
 
@@ -173,9 +171,12 @@ export default function BrandsSection() {
             every interaction in real-time to deliver insights and notify
             customers directly with personalised, relevant, and timely messages.
           </p>
-          <Button className="bg-[#00FFE0] text-black font-semibold px-8 py-6 rounded-full hover:bg-[#00E0C8]/90 shadow-[0_0_25px_#00FFE0] transition-all duration-300">
+          <Link
+            href="/contact"
+            className="bg-[#00FFE0] text-black font-semibold px-8 py-6 rounded-full hover:bg-[#00E0C8]/90 shadow-[0_0_25px_#00FFE0] transition-all duration-300"
+          >
             Get in touch
-          </Button>
+          </Link>
         </motion.div>
       </div>
     </section>

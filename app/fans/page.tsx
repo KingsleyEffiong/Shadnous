@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import FansImpactSection from "@/components/fans";
 import AdvancedRegistration from "@/components/advanceregistration";
 import FaqSection from "@/components/faq";
+import Link from "next/link";
 
 export default function FansPage() {
   return (
@@ -76,15 +77,18 @@ export default function FansPage() {
 
             {/* Buttons */}
             <div className="mt-10 flex flex-wrap justify-center gap-6">
-              <Button className="bg-[#00C8FF] text-black font-semibold px-8 py-6 rounded-full hover:bg-[#00E0FF]/90 shadow-[0_0_30px_#00C8FF] transition-all duration-300">
+              <Link
+                href="/shadnous.fan"
+                className="bg-[#00C8FF] text-black font-semibold px-8 py-6 rounded-full hover:bg-[#00E0FF]/90 shadow-[0_0_30px_#00C8FF] transition-all duration-300"
+              >
                 Learn More
-              </Button>
-              <Button
-                variant="outline"
+              </Link>
+              <Link
+                href="/contact"
                 className="border-[#00C8FF] text-[#00C8FF] font-semibold px-8 py-6 rounded-full hover:bg-[#00C8FF]/10 transition-all duration-300 backdrop-blur-sm"
               >
                 Contact Us
-              </Button>
+              </Link>
             </div>
           </motion.div>
 

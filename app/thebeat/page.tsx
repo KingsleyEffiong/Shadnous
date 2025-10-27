@@ -26,13 +26,7 @@ export default function LoyaltyForLiveAudiences() {
           </p>
           <div className="flex justify-center gap-4 pt-4">
             <Link
-              href="#"
-              className="px-6 py-3 rounded-full bg-[#06B6D4] hover:bg-[#0891B2] text-white font-medium transition"
-            >
-              Learn More
-            </Link>
-            <Link
-              href="#"
+              href="/contact"
               className="px-6 py-3 rounded-full border border-[#06B6D4]/50 hover:bg-[#06B6D4]/10 text-white font-medium transition"
             >
               Contact Us
@@ -109,16 +103,6 @@ export default function LoyaltyForLiveAudiences() {
               </div>
             ))}
           </div>
-
-          <div className="pt-8 space-y-4">
-            <Link
-              href="#"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#06B6D4] hover:bg-[#0891B2] rounded-full font-medium text-white transition"
-            >
-              Learn More <ArrowRight size={18} />
-            </Link>
-          </div>
-
           <div className="pt-10">
             <h3 className="text-2xl font-semibold text-white mb-3">
               Why “The Beat”?
