@@ -45,7 +45,9 @@ export default function MusicianPage() {
   const [selectedTier, setSelectedTier] = useState("Basic");
   const [txId, setTxId] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [email, setEmail] = useState(""); // ✅ added email state
+  const [email, setEmail] = useState("");
+  const [homeAddress, setHomeAddress] = useState("");
+  const [open, setOpen] = useState(false); // ✅ Controls popup open/close
 
   const walletAddress = "0xABCDEF1234567890ABCDEF1234567890ABCDEF12";
 
@@ -65,15 +67,18 @@ export default function MusicianPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ tier: selectedTier, txId, file, email }); // ✅ include email
+    console.log({ tier: selectedTier, txId, file, email, homeAddress });
 
     toast.success(`🎟️ Payment submitted for ${selectedTier} tier!`, {
       description: "We’ll verify your transaction shortly.",
     });
 
+    // ✅ reset form and close popup
     setTxId("");
     setFile(null);
     setEmail("");
+    setHomeAddress("");
+    setOpen(false);
   };
 
   const tier = tiers[index];
@@ -127,9 +132,12 @@ export default function MusicianPage() {
           </p>
 
           {/* Popup Trigger */}
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button className="px-6 md:px-8 py-3 rounded-full font-semibold bg-gradient-to-r from-[#00C8FF] via-[#7B61FF] to-[#FF4AED] shadow-lg hover:shadow-[#FF4AED]/40 transition-all text-sm md:text-base">
+              <Button
+                onClick={() => setOpen(true)}
+                className="px-6 md:px-8 py-3 rounded-full font-semibold bg-gradient-to-r from-[#00C8FF] via-[#7B61FF] to-[#FF4AED] shadow-lg hover:shadow-[#FF4AED]/40 transition-all text-sm md:text-base"
+              >
                 Get Access Card
               </Button>
             </DialogTrigger>
@@ -137,10 +145,10 @@ export default function MusicianPage() {
             {/* Popup Content */}
             <DialogContent
               className="bg-[#0a0b14]/90 backdrop-blur-xl border border-white/10 text-white 
-    w-[95vw] sm:w-[90vw] md:w-[480px] lg:w-[520px]
-    max-h-[90vh] overflow-y-auto 
-    shadow-xl rounded-2xl p-4 sm:p-6 space-y-6 
-    scrollbar-thin scrollbar-thumb-[#7B61FF]/40"
+              w-[95vw] sm:w-[90vw] md:w-[480px] lg:w-[520px]
+              max-h-[90vh] overflow-y-auto 
+              shadow-xl rounded-2xl p-4 sm:p-6 space-y-6 
+              scrollbar-thin scrollbar-thumb-[#7B61FF]/40"
             >
               <DialogHeader>
                 <DialogTitle className="text-xl sm:text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#00C8FF] to-[#FF4AED] mb-4 text-center sm:text-left">
@@ -171,7 +179,7 @@ export default function MusicianPage() {
                   </div>
                 </div>
 
-                {/* Email Input ✅ */}
+                {/* Email Input */}
                 <div className="space-y-2">
                   <Label className="text-sm text-gray-300">
                     Your Email Address
@@ -182,6 +190,20 @@ export default function MusicianPage() {
                     className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-[#7B61FF]/50"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label className="text-sm text-gray-300">
+                    Your Home Address
+                  </Label>
+                  <Input
+                    type="text"
+                    placeholder="Enter your home address"
+                    className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-[#7B61FF]/50"
+                    value={homeAddress}
+                    onChange={(e) => setHomeAddress(e.target.value)}
                     required
                   />
                 </div>
@@ -302,7 +324,7 @@ export default function MusicianPage() {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, delay: 0.3 }}
+          transition={{ duration: 2, delay: 1 }}
           className="flex-1 relative flex justify-center items-center py-32 md:py-0"
         >
           <AnimatePresence mode="wait">

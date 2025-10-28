@@ -21,6 +21,28 @@ export const metadata: Metadata = {
     icon: "/logo.png",
   },
 };
+
+// export const metadata: Metadata = {
+//   title: "Shadnous",
+//   description: "Celebrity Membership Card Purchase Platform",
+//   keywords: ["Celebrity", "Loyal fans", "membership card"],
+//   metadataBase: new URL("https://shadnous.agency"),
+//   alternates: {
+//     canonical: "https://shadnous.agency",
+//   },
+//   openGraph: {
+//     title: "Shadnous",
+//     description: "Celebrity Membership Card Purchase Platform",
+//     url: "https://shadnous.agency",
+//     siteName: "Shadnous",
+//     locale: "en_US",
+//     type: "website",
+//   },
+//   icons: {
+//     icon: "/logo.png",
+//   },
+// };
+
 export default function RootLayout({
   children,
 }: Readonly<{
