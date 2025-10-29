@@ -1,22 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Twitter, Instagram, Youtube, Mail } from "lucide-react";
+import { Facebook } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  function handleSubscribe(e: React.FormEvent) {
-    e.preventDefault();
-    if (!email) return;
-    setSubscribed(true);
-    setEmail("");
-  }
-
   return (
     <footer className="relative z-30 bg-gradient-to-br from-[#00141C] via-[#000000]/90 to-[#001B28] backdrop-blur-xl border-t border-[#00C8FF]/20 shadow-[0_0_80px_rgba(0,200,255,0.15)] text-white overflow-hidden">
       {/* animated cyan streak */}
@@ -44,9 +34,10 @@ export default function Footer() {
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                <img
+                <Image
                   src="/logo.png"
                   alt="logo"
+                  fill
                   className="w-full h-full object-cover rounded-full"
                 />
                 <div className="absolute inset-0 rounded-full bg-[#00C8FF]/25 mix-blend-screen" />
@@ -63,16 +54,15 @@ export default function Footer() {
             </div>
 
             <div className="flex items-center gap-3 mt-2">
-              {[Twitter, Instagram, Youtube, Mail].map((Icon, i) => (
-                <a
-                  key={i}
-                  aria-label="Social"
-                  href="#"
-                  className="p-2 rounded-lg bg-white/5 hover:bg-[#00C8FF]/10 transition border border-transparent hover:border-[#00C8FF]/30"
-                >
-                  <Icon className="w-5 h-5 text-[#00C8FF]" />
-                </a>
-              ))}
+              <a
+                aria-label="Facebook"
+                href="https://www.facebook.com/share/1Ca4GwxDKt/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg bg-white/5 hover:bg-[#00C8FF]/10 transition border border-transparent hover:border-[#00C8FF]/30"
+              >
+                <Facebook className="w-5 h-5 text-[#00C8FF]" />
+              </a>
             </div>
 
             <p className="mt-6 text-sm text-gray-400 max-w-md leading-relaxed">
@@ -93,7 +83,7 @@ export default function Footer() {
                 Platform
               </h5>
               <ul className="space-y-2 text-sm">
-                {["Artists", "Fans", "Brands", "Venues"].map((label) => (
+                {["Fans", "Brands"].map((label) => (
                   <li key={label}>
                     <Link
                       href={`/${label.toLowerCase()}`}
@@ -105,67 +95,6 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-
-            <div className="min-w-[140px]">
-              <h5 className="text-sm font-semibold text-gray-300 mb-3">
-                Company
-              </h5>
-              <ul className="space-y-2 text-sm">
-                {["About", "Careers", "Press", "Contact"].map((label) => (
-                  <li key={label}>
-                    <Link
-                      href={`/${label.toLowerCase()}`}
-                      className="text-gray-300 hover:text-[#00C8FF] transition"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-
-          {/* Newsletter / CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="flex-1"
-          >
-            <h5 className="text-sm font-semibold text-gray-300 mb-3">
-              Stay in the loop
-            </h5>
-            <p className="text-sm text-gray-400 mb-4">
-              Get artist drops, early access and platform updates.
-            </p>
-
-            <form
-              onSubmit={handleSubscribe}
-              className="flex items-center gap-3"
-            >
-              <input
-                type="email"
-                placeholder={
-                  subscribed ? "You're subscribed ✅" : "you@fanmail.com"
-                }
-                className="min-w-0 flex-1 bg-white/5 border border-white/10 placeholder-gray-400 text-sm py-2 px-3 rounded-full focus:outline-none focus:ring-2 focus:ring-[#00C8FF]/40"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={subscribed}
-                aria-label="Email address"
-              />
-              <Button
-                type="submit"
-                className="rounded-full px-4 py-2 bg-gradient-to-r from-[#00C8FF] to-[#4FDFFF] text-black font-semibold shadow-[0_0_15px_#00C8FF40] hover:shadow-[0_0_25px_#00C8FF80] transition"
-              >
-                {subscribed ? "Thanks" : "Subscribe"}
-              </Button>
-            </form>
-
-            <p className="text-xs text-gray-500 mt-3">
-              We respect your privacy — GDPR compliant & white-label options
-              available.
-            </p>
           </motion.div>
         </div>
 
@@ -173,17 +102,6 @@ export default function Footer() {
           <p className="text-sm text-gray-400">
             © {new Date().getFullYear()} Shadnous — All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            {["Terms", "Privacy"].map((label) => (
-              <Link
-                key={label}
-                href={`/${label.toLowerCase()}`}
-                className="text-sm text-gray-400 hover:text-[#00C8FF] transition"
-              >
-                {label}
-              </Link>
-            ))}
-          </div>
         </div>
       </div>
     </footer>

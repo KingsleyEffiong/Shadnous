@@ -47,9 +47,9 @@ export default function MusicianPage() {
   const [file, setFile] = useState<File | null>(null);
   const [email, setEmail] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
-  const [open, setOpen] = useState(false); // ✅ Controls popup open/close
+  const [open, setOpen] = useState(false);
 
-  const walletAddress = "0xABCDEF1234567890ABCDEF1234567890ABCDEF12";
+  const walletAddress = "1Pfj6ppwQu5LVHus4vg1gScNUDKMxc9PcD";
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -65,20 +65,39 @@ export default function MusicianPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // ✅ Updated handleSubmit to send email through API
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ tier: selectedTier, txId, file, email, homeAddress });
 
-    toast.success(`🎟️ Payment submitted for ${selectedTier} tier!`, {
-      description: "We’ll verify your transaction shortly.",
-    });
+    const formData = new FormData();
+    formData.append("tier", selectedTier);
+    formData.append("txId", txId);
+    formData.append("email", email);
+    formData.append("homeAddress", homeAddress);
+    if (file) formData.append("file", file);
 
-    // ✅ reset form and close popup
-    setTxId("");
-    setFile(null);
-    setEmail("");
-    setHomeAddress("");
-    setOpen(false);
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        toast.success(`🎟️ Payment submitted for ${selectedTier} tier!`, {
+          description: "We’ll verify your transaction shortly.",
+        });
+        setTxId("");
+        setFile(null);
+        setEmail("");
+        setHomeAddress("");
+        setOpen(false);
+      } else {
+        toast.error("Failed to send email. Try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Something went wrong.");
+    }
   };
 
   const tier = tiers[index];
@@ -156,6 +175,7 @@ export default function MusicianPage() {
                 </DialogTitle>
               </DialogHeader>
 
+              {/* Form */}
               <form onSubmit={handleSubmit} className="space-y-6 pb-6">
                 {/* Select Tier */}
                 <div className="space-y-2">
@@ -179,21 +199,20 @@ export default function MusicianPage() {
                   </div>
                 </div>
 
-                {/* Email Input */}
+                {/* Email */}
                 <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">
-                    Your Email Address
-                  </Label>
+                  <Label className="text-sm text-gray-300">Your Email</Label>
                   <Input
                     type="email"
                     placeholder="Enter your email"
-                    className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-[#7B61FF]/50"
+                    className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </div>
 
+                {/* Home Address */}
                 <div className="space-y-2">
                   <Label className="text-sm text-gray-300">
                     Your Home Address
@@ -201,14 +220,14 @@ export default function MusicianPage() {
                   <Input
                     type="text"
                     placeholder="Enter your home address"
-                    className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-[#7B61FF]/50"
+                    className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg"
                     value={homeAddress}
                     onChange={(e) => setHomeAddress(e.target.value)}
                     required
                   />
                 </div>
 
-                {/* Wallet QR + Address */}
+                {/* QR + Wallet */}
                 <div className="space-y-3 text-center">
                   <Label className="text-sm text-gray-300">
                     Scan to Pay (Wallet QR)
@@ -227,15 +246,14 @@ export default function MusicianPage() {
                   <p className="text-xs text-gray-400">
                     Or copy address below 👇
                   </p>
-
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 bg-[#111]/70 border border-white/10 px-3 py-2 rounded-lg">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-[#111]/70 border border-white/10 px-3 py-2 rounded-lg">
                     <span className="truncate text-sm text-gray-300">
                       {walletAddress}
                     </span>
                     <button
                       type="button"
                       onClick={handleCopy}
-                      className="text-[#00C8FF] hover:text-[#7B61FF] transition-colors self-end sm:self-auto"
+                      className="text-[#00C8FF] hover:text-[#7B61FF] transition-colors"
                     >
                       {copied ? <Check size={18} /> : <Copy size={18} />}
                     </button>
@@ -249,14 +267,14 @@ export default function MusicianPage() {
                   </Label>
                   <Input
                     placeholder="Paste your transaction hash"
-                    className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg focus:ring-2 focus:ring-[#7B61FF]/50"
+                    className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg"
                     value={txId}
                     onChange={(e) => setTxId(e.target.value)}
                     required
                   />
                 </div>
 
-                {/* Upload Screenshot */}
+                {/* Upload */}
                 <div className="space-y-2">
                   <Label className="text-sm text-gray-300">
                     Upload Payment Screenshot
@@ -264,13 +282,13 @@ export default function MusicianPage() {
                   <Input
                     type="file"
                     accept="image/*"
-                    className="bg-[#111]/70 border border-white/10 text-gray-300 rounded-lg file:bg-[#00C8FF]/10 file:border-none file:mr-2 file:px-3 file:py-1 file:rounded-md file:text-[#00C8FF] hover:file:bg-[#00C8FF]/20 cursor-pointer"
+                    className="bg-[#111]/70 border border-white/10 text-gray-300 rounded-lg file:bg-[#00C8FF]/10 file:border-none file:mr-2 file:px-3 file:py-1 file:rounded-md file:text-[#00C8FF]"
                     onChange={(e) => setFile(e.target.files?.[0] || null)}
                     required
                   />
                 </div>
 
-                {/* Info Message */}
+                {/* Info */}
                 <div className="bg-[#111]/50 border border-[#00C8FF]/20 rounded-lg p-4 text-sm text-gray-300 leading-relaxed">
                   ✅ After your payment is confirmed, you’ll receive your
                   <span className="text-[#00C8FF] font-medium">
@@ -289,10 +307,9 @@ export default function MusicianPage() {
                   .
                 </div>
 
-                {/* Submit Button */}
                 <Button
                   type="submit"
-                  className="w-full py-3 mt-2 rounded-full bg-gradient-to-r from-[#00C8FF] via-[#7B61FF] to-[#FF4AED] font-semibold shadow-lg hover:opacity-90 transition-all text-sm sm:text-base"
+                  className="w-full py-3 mt-2 rounded-full bg-gradient-to-r from-[#00C8FF] via-[#7B61FF] to-[#FF4AED] font-semibold shadow-lg hover:opacity-90 transition-all"
                 >
                   Submit Payment
                 </Button>
@@ -300,7 +317,7 @@ export default function MusicianPage() {
             </DialogContent>
           </Dialog>
 
-          {/* How it works */}
+          {/* How it Works */}
           <div className="mt-14">
             <h2 className="text-xl font-semibold mb-3">How it works</h2>
             <ul className="text-gray-400 space-y-3 text-sm">
@@ -325,7 +342,7 @@ export default function MusicianPage() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2, delay: 1 }}
-          className="flex-1 relative flex justify-center items-center py-32 md:py-0"
+          className="flex-1 relative flex justify-center items-center py-32 md:py-0 px-24"
         >
           <AnimatePresence mode="wait">
             <motion.div
@@ -334,7 +351,7 @@ export default function MusicianPage() {
               animate={{ opacity: 1, x: 0, rotateY: 0 }}
               exit={{ opacity: 0, x: -100, rotateY: -30 }}
               transition={{ duration: 0.8, ease: "easeInOut" }}
-              className="absolute w-[380px] h-[260px] rounded-3xl overflow-hidden bg-gradient-to-br from-[#00C8FF]/40 via-[#7B61FF]/20 to-[#FF4AED]/10 border border-white/10 backdrop-blur-2xl shadow-lg hover:shadow-[#7B61FF]/30 transition-all"
+              className="absolute w-[380px] h-[260px] rounded-3xl overflow-hidden bg-gradient-to-br from-[#00C8FF]/40 via-[#7B61FF]/20 to-[#FF4AED]/10 border border-white/10 backdrop-blur-2xl shadow-lg"
             >
               <Image
                 src={`/images/${capitalizedFirstLetter}/${id}.jpg`}
@@ -360,28 +377,6 @@ export default function MusicianPage() {
                 <p className="text-sm text-gray-300 mt-3">
                   {tier.name} Membership – {tier.price}
                 </p>
-
-                {/* Access Details */}
-                <div className="text-xs text-gray-400 mt-3 leading-relaxed">
-                  {tier.name === "Basic" && (
-                    <p>
-                      🎵 Access to exclusive posts, updates, and fan community
-                      chats.
-                    </p>
-                  )}
-                  {tier.name === "Pro" && (
-                    <p>
-                      🔥 All Basic perks + early song access, ticket presales,
-                      and limited merch drops.
-                    </p>
-                  )}
-                  {tier.name === "VIP" && (
-                    <p>
-                      👑 Includes all Pro benefits + private meet & greets,
-                      unreleased tracks, and signed digital collectibles.
-                    </p>
-                  )}
-                </div>
               </div>
             </motion.div>
           </AnimatePresence>

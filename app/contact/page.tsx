@@ -45,37 +45,7 @@ export default function ContactPage() {
             </p>
 
             <div className="flex items-center gap-3 text-[#06B6D4] font-medium">
-              <Mail size={20} /> hello@planet.fans
-            </div>
-
-            <div className="pt-8 border-t border-white/10">
-              <h4 className="text-lg font-semibold mb-3">Quick Links</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-[#06B6D4] transition-colors"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-[#06B6D4] transition-colors"
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="hover:text-[#06B6D4] transition-colors"
-                  >
-                    Support
-                  </Link>
-                </li>
-              </ul>
+              <Mail size={20} /> shadnous3@gmail.com
             </div>
           </motion.div>
 
