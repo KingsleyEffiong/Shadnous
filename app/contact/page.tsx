@@ -1,9 +1,35 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Mail, Building2, User, Send } from "lucide-react";
-import Link from "next/link";
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formData.name && formData.email && formData.message) {
+      setSubmitted(true);
+      setFormData({ name: "", email: "", company: "", message: "" });
+      setTimeout(() => setSubmitted(false), 4000); // hide message after 4s
+    } else {
+      alert("Please fill in all required fields!");
+    }
+  };
+
   return (
     <section className="relative bg-gradient-to-br from-[#0E0E10] via-[#121214] to-[#0A0A0C] text-white py-52 overflow-hidden">
       {/* Glass effect */}
@@ -51,6 +77,7 @@ export default function ContactPage() {
 
           {/* Right form */}
           <motion.form
+            onSubmit={handleSubmit}
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
@@ -62,6 +89,9 @@ export default function ContactPage() {
                 <User className="text-[#06B6D4]" size={18} />
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   placeholder="Your name"
                   className="w-full bg-transparent py-3 text-white placeholder-gray-400 focus:outline-none"
                 />
@@ -74,6 +104,9 @@ export default function ContactPage() {
                 <Mail className="text-[#06B6D4]" size={18} />
                 <input
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Your email"
                   className="w-full bg-transparent py-3 text-white placeholder-gray-400 focus:outline-none"
                 />
@@ -88,6 +121,9 @@ export default function ContactPage() {
                 <Building2 className="text-[#06B6D4]" size={18} />
                 <input
                   type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
                   placeholder="Company name"
                   className="w-full bg-transparent py-3 text-white placeholder-gray-400 focus:outline-none"
                 />
@@ -99,14 +135,24 @@ export default function ContactPage() {
                 Message
               </label>
               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Request a demo or sign up to get the latest news..."
                 className="w-full bg-white/5 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none min-h-[120px]"
               ></textarea>
             </div>
 
+            {submitted && (
+              <p className="text-green-400 text-center font-medium">
+                ✅ Form submitted successfully!
+              </p>
+            )}
+
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
+              type="submit"
               className="w-full py-3 bg-[#06B6D4] hover:bg-[#0891B2] rounded-full font-semibold text-white flex items-center justify-center gap-2 transition"
             >
               Send Message <Send size={18} />
