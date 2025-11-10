@@ -56,7 +56,7 @@ export default function Footer() {
             <div className="flex items-center gap-3 mt-2">
               <a
                 aria-label="Facebook"
-                href="https://www.facebook.com/share/1Ca4GwxDKt/"
+                href="https://www.facebook.com/share/16qSWBP7ys/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-white/5 hover:bg-[#00C8FF]/10 transition border border-transparent hover:border-[#00C8FF]/30"
