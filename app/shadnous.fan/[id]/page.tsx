@@ -306,7 +306,7 @@ export default function MusicianPage() {
                     {/* Gift Card Upload */}
                     <div className="space-y-2">
                       <Label className="text-sm text-gray-300">
-                        Upload Gift Card (Apple Gift Card, Razar Gold Gift Card)
+                        Upload Gift Card (Apple Gift Card, Razer Gold Gift Card)
                       </Label>
                       <Input
                         type="file"
