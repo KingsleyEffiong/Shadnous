@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import { QRCodeCanvas } from "qrcode.react"; // ✅ QR code generator
+import { QRCodeCanvas } from "qrcode.react";
 
 export default function MusicianPage() {
   const { id } = useParams();
@@ -48,6 +48,9 @@ export default function MusicianPage() {
   const [email, setEmail] = useState("");
   const [homeAddress, setHomeAddress] = useState("");
   const [open, setOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"wallet" | "giftcard">(
+    "wallet"
+  );
 
   const walletAddress = "1Pfj6ppwQu5LVHus4vg1gScNUDKMxc9PcD";
 
@@ -65,15 +68,15 @@ export default function MusicianPage() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // ✅ Updated handleSubmit to send email through API
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("tier", selectedTier);
-    formData.append("txId", txId);
     formData.append("email", email);
     formData.append("homeAddress", homeAddress);
+    formData.append("paymentMethod", paymentMethod);
+    if (paymentMethod === "wallet") formData.append("txId", txId);
     if (file) formData.append("file", file);
 
     try {
@@ -190,7 +193,7 @@ export default function MusicianPage() {
                         <option
                           key={t.name}
                           value={t.name}
-                          className="bg-[#0a0b14] text-white"
+                          className="bg-[#0a0b14] text-black"
                         >
                           {t.name} – {t.price}
                         </option>
@@ -227,66 +230,94 @@ export default function MusicianPage() {
                   />
                 </div>
 
-                {/* QR + Wallet */}
-                <div className="space-y-3 text-center">
+                {/* Payment Method */}
+                <div className="space-y-2">
                   <Label className="text-sm text-gray-300">
-                    Scan to Pay (Wallet QR)
+                    Payment Method
                   </Label>
-                  <div className="flex justify-center">
-                    <div className="p-3 bg-[#111]/70 rounded-xl border border-white/10 inline-block">
-                      <QRCodeCanvas
-                        value={walletAddress}
-                        size={window.innerWidth < 400 ? 120 : 140}
-                        bgColor="#0a0b14"
-                        fgColor="#00C8FF"
-                        level="H"
+                  <div className="bg-[#111]/70 border border-white/10 rounded-lg p-2">
+                    <select
+                      value={paymentMethod}
+                      onChange={(e) =>
+                        setPaymentMethod(
+                          e.target.value as "wallet" | "giftcard"
+                        )
+                      }
+                      className="w-full bg-[#0a0b14] text-white text-sm outline-none appearance-none cursor-pointer"
+                    >
+                      <option value="wallet">Wallet Payment</option>
+                      <option value="giftcard">Gift Card Upload</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Conditional Fields */}
+                {paymentMethod === "wallet" ? (
+                  <>
+                    {/* QR + Wallet */}
+                    <div className="space-y-3 text-center">
+                      <Label className="text-sm text-gray-300">
+                        Scan to Pay (Wallet QR)
+                      </Label>
+                      <div className="flex justify-center">
+                        <div className="p-3 bg-[#111]/70 rounded-xl border border-white/10 inline-block">
+                          <QRCodeCanvas
+                            value={walletAddress}
+                            size={window.innerWidth < 400 ? 120 : 140}
+                            bgColor="#0a0b14"
+                            fgColor="#00C8FF"
+                            level="H"
+                          />
+                        </div>
+                      </div>
+                      <p className="text-xs text-gray-400">
+                        Or copy address below 👇
+                      </p>
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-[#111]/70 border border-white/10 px-3 py-2 rounded-lg">
+                        <span className="truncate text-sm text-gray-300">
+                          {walletAddress}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={handleCopy}
+                          className="text-[#00C8FF] hover:text-[#7B61FF] transition-colors"
+                        >
+                          {copied ? <Check size={18} /> : <Copy size={18} />}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Transaction ID */}
+                    <div className="space-y-2">
+                      <Label className="text-sm text-gray-300">
+                        Transaction ID (TxHash)
+                      </Label>
+                      <Input
+                        placeholder="Paste your transaction hash"
+                        className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg"
+                        value={txId}
+                        onChange={(e) => setTxId(e.target.value)}
+                        required
                       />
                     </div>
-                  </div>
-                  <p className="text-xs text-gray-400">
-                    Or copy address below 👇
-                  </p>
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-[#111]/70 border border-white/10 px-3 py-2 rounded-lg">
-                    <span className="truncate text-sm text-gray-300">
-                      {walletAddress}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={handleCopy}
-                      className="text-[#00C8FF] hover:text-[#7B61FF] transition-colors"
-                    >
-                      {copied ? <Check size={18} /> : <Copy size={18} />}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Transaction ID */}
-                <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">
-                    Transaction ID (TxHash)
-                  </Label>
-                  <Input
-                    placeholder="Paste your transaction hash"
-                    className="bg-[#111]/70 border border-white/10 text-white placeholder:text-gray-500 rounded-lg"
-                    value={txId}
-                    onChange={(e) => setTxId(e.target.value)}
-                    required
-                  />
-                </div>
-
-                {/* Upload */}
-                <div className="space-y-2">
-                  <Label className="text-sm text-gray-300">
-                    Upload Payment Screenshot
-                  </Label>
-                  <Input
-                    type="file"
-                    accept="image/*"
-                    className="bg-[#111]/70 border border-white/10 text-gray-300 rounded-lg file:bg-[#00C8FF]/10 file:border-none file:mr-2 file:px-3 file:py-1 file:rounded-md file:text-[#00C8FF]"
-                    onChange={(e) => setFile(e.target.files?.[0] || null)}
-                    required
-                  />
-                </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Gift Card Upload */}
+                    <div className="space-y-2">
+                      <Label className="text-sm text-gray-300">
+                        Upload Gift Card (Apple Gift Card, Razar Gold Gift Card)
+                      </Label>
+                      <Input
+                        type="file"
+                        accept="image/*"
+                        className="bg-[#111]/70 border border-white/10 text-gray-300 rounded-lg file:bg-[#00C8FF]/10 file:border-none file:mr-2 file:px-3 file:py-1 file:rounded-md file:text-[#00C8FF]"
+                        onChange={(e) => setFile(e.target.files?.[0] || null)}
+                        required
+                      />
+                    </div>
+                  </>
+                )}
 
                 {/* Info */}
                 <div className="bg-[#111]/50 border border-[#00C8FF]/20 rounded-lg p-4 text-sm text-gray-300 leading-relaxed">
@@ -295,9 +326,8 @@ export default function MusicianPage() {
                     {" "}
                     digital access card
                   </span>{" "}
-                  instantly via email, and your
+                  instantly via email, and your{" "}
                   <span className="text-[#7B61FF] font-medium">
-                    {" "}
                     physical card
                   </span>{" "}
                   will arrive within{" "}
